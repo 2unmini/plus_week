@@ -45,7 +45,7 @@ public class ReservationService {
         Reservation reservation = new Reservation(item, user, ReservationStatus.PENDING, startAt, endAt);
         Reservation savedReservation = reservationRepository.save(reservation);
 
-        RentalLog rentalLog = new RentalLog(savedReservation, "로그 메세지", "CREATE");
+        RentalLog rentalLog = new RentalLog(savedReservation, "로그 메세지", LogType.SUCCESS);
         rentalLogService.save(rentalLog);
     }
 
@@ -86,12 +86,13 @@ public class ReservationService {
         } else {
             return reservationRepository.findAll();
         }*/
-        if(itemId==null) {
+       /* if(itemId==null) {
             return reservationRepository.getReservationByUserId(userId);
         }else if(userId ==null) {
             return reservationRepository.getReservationByItemId(itemId);
         }
-        return reservationRepository.findAllWithitemIdAndUserId();
+        return reservationRepository.findAllWithitemIdAndUserId();*/
+        return reservationRepository.getReservationByUserIdOrItemId(userId,itemId);
     }
 
     private List<ReservationResponseDto> convertToDto(List<Reservation> reservations) {
@@ -111,7 +112,7 @@ public class ReservationService {
     public void updateReservationStatus(Long reservationId, String status) {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new IllegalArgumentException("해당 ID에 맞는 데이터가 존재하지 않습니다."));
 
-        switch (status) {
+        /*switch (status) {
             case "APPROVED": {
                 if (!"PENDING".equals(reservation.getStatus().getStatus())) {
                     throw new IllegalArgumentException("PENDING 상태만 APPROVED로 변경 가능합니다.");
@@ -134,8 +135,10 @@ public class ReservationService {
             default: {
                 throw new IllegalArgumentException("올바르지 않은 상태: " + status);
             }
-        }
-        reservation.updateStatus(ReservationStatus.valueOf(status));
+        }*/
+
+        ReservationStatus reservationStatus = reservation.getStatus().changeTo(ReservationStatus.valueOf(status));
+        reservation.updateStatus(reservationStatus);
 
 
 
