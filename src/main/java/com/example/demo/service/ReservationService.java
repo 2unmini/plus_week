@@ -1,10 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ReservationResponseDto;
-import com.example.demo.entity.Item;
-import com.example.demo.entity.RentalLog;
-import com.example.demo.entity.Reservation;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.exception.ReservationConflictException;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.ReservationRepository;
@@ -45,7 +42,7 @@ public class ReservationService {
 
         Item item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalArgumentException("해당 ID에 맞는 값이 존재하지 않습니다."));
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 ID에 맞는 값이 존재하지 않습니다."));
-        Reservation reservation = new Reservation(item, user, "PENDING", startAt, endAt);
+        Reservation reservation = new Reservation(item, user, ReservationStatus.PENDING, startAt, endAt);
         Reservation savedReservation = reservationRepository.save(reservation);
 
         RentalLog rentalLog = new RentalLog(savedReservation, "로그 메세지", "CREATE");
@@ -116,19 +113,19 @@ public class ReservationService {
 
         switch (status) {
             case "APPROVED": {
-                if (!"PENDING".equals(reservation.getStatus())) {
+                if (!"PENDING".equals(reservation.getStatus().getStatus())) {
                     throw new IllegalArgumentException("PENDING 상태만 APPROVED로 변경 가능합니다.");
                 }
                 break;
             }
             case "CANCELED": {
-                if ("EXPIRED".equals(reservation.getStatus())) {
+                if ("EXPIRED".equals(reservation.getStatus().getStatus())) {
                     throw new IllegalArgumentException("EXPIRED 상태인 예약은 취소할 수 없습니다.");
                 }
                 break;
             }
             case "EXPIRED": {
-                if (!"PENDING".equals(reservation.getStatus())) {
+                if (!"PENDING".equals(reservation.getStatus().getStatus())) {
                     throw new IllegalArgumentException("PENDING 상태만 EXPIRED로 변경 가능합니다.");
                 }
 
@@ -138,7 +135,7 @@ public class ReservationService {
                 throw new IllegalArgumentException("올바르지 않은 상태: " + status);
             }
         }
-        reservation.updateStatus(status);
+        reservation.updateStatus(ReservationStatus.valueOf(status));
 
 
 
