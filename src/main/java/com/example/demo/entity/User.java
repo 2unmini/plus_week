@@ -2,9 +2,14 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicInsert;
+import org.springframework.context.annotation.Configuration;
+
+import static com.example.demo.entity.UserStatus.BLOCKED;
 
 @Entity
 @Getter
+@DynamicInsert
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +18,9 @@ public class User {
     private String email;
     private String nickname;
     private String password;
-    private String status; // NORMAL, BLOCKED
+    @Enumerated(value = EnumType.STRING)
+    @Column(columnDefinition = "varchar(20) default 'NORMAL'")
+    private UserStatus status; // NORMAL, BLOCKED
 
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;
@@ -28,6 +35,6 @@ public class User {
     public User() {}
 
     public void updateStatusToBlocked() {
-        this.status = "BLOCKED";
+        this.status = BLOCKED;
     }
 }
