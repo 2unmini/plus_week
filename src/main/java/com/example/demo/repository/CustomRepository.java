@@ -7,9 +7,9 @@ import java.util.List;
 
 @Repository
 public interface CustomRepository {
-     List<Reservation> getReservationByUserId(Long id);
+    List<Reservation> getReservationByUserId(Long id);
 
     List<Reservation> getReservationByItemId(Long id);
 
-    List<Reservation> getReservationByUserIdOrItemId(Long userId,Long itemId);
+    List<Reservation> getReservationByUserIdOrItemId(Long userId, Long itemId);
 }

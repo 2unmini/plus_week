@@ -1,8 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Reservation;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long>,CustomRepository {
+public interface ReservationRepository extends JpaRepository<Reservation, Long>, CustomRepository {
 
 
     List<Reservation> findByUserIdAndItemId(Long userId, Long itemId);
@@ -38,11 +36,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
      * 연관된거 아이템, 유저
      */
     @Query("SELECT r FROM Reservation r " +
-    "join fetch r.item i "
-    +"join fetch r.user u")
-
+            "join fetch r.item i "
+            + "join fetch r.user u")
     List<Reservation> findAllWithitemIdAndUserId();
-
 
 
 }

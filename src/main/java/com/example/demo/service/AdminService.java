@@ -31,11 +31,11 @@ public class AdminService {
     public void reportUsers(List<Long> userIds) {
         List<User> users = userRepository.findAllById(userIds);
 
-       if(userIds.size()!=users.size()) {
-           throw new IllegalArgumentException("해당 ID에 맞는 값이 존재하지 않습니다.");
-       }
-       for(User user:users){
-           user.updateStatusToBlocked();
-       }
+        if (userIds.size() != users.size()) {
+            throw new IllegalArgumentException("해당 ID에 맞는 값이 존재하지 않습니다.");
+        }
+        for (User user : users) {
+            user.updateStatusToBlocked();
+        }
     }
 }

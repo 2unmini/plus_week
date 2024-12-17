@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ReservationStatus {
-    PENDING("PENDING"){
+    PENDING("PENDING") {
         @Override
         public boolean canChangeTo(ReservationStatus status) {
             switch (status) {
@@ -14,20 +14,17 @@ public enum ReservationStatus {
             }
             return false;
         }
-    }
-    ,APPROVED("APPROVED"){
+    }, APPROVED("APPROVED") {
         @Override
         public boolean canChangeTo(ReservationStatus status) {
             return status.equals(APPROVED);
         }
-    }
-    ,CANCELED("CANCELED"){
+    }, CANCELED("CANCELED") {
         @Override
         public boolean canChangeTo(ReservationStatus status) {
             return status.equals(CANCELED);
         }
-    }
-    ,EXPIRED("EXPIRED") {
+    }, EXPIRED("EXPIRED") {
         @Override
         public boolean canChangeTo(ReservationStatus status) {
             return status.equals(EXPIRED);
@@ -39,20 +36,21 @@ public enum ReservationStatus {
     ReservationStatus(String status) {
         this.status = status;
     }
+
     public abstract boolean canChangeTo(ReservationStatus nextStatus);
 
     public ReservationStatus changeTo(ReservationStatus status) {
-        if(canChangeTo(status)){
+        if (canChangeTo(status)) {
             return status;
-        }
-        else {
-            throw new IllegalArgumentException(this.status+"일때는 "+ status+"상태가 아닙니다");
+        } else {
+            throw new IllegalArgumentException(this.status + "일때는 " + status + "상태가 아닙니다");
         }
     }
+
     public static ReservationStatus ischange(String status) {
         try {
             return ReservationStatus.valueOf(status);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("올바르지 않은 상태: " + status);
         }
     }

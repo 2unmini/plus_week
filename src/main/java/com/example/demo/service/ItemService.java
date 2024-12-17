@@ -25,7 +25,7 @@ public class ItemService {
 
         Item item = new Item(name, description, owner, manager);
         itemRepository.save(item);
-        return  ItemResponseDto.toDto(item);
+        return ItemResponseDto.toDto(item);
 
     }
 }

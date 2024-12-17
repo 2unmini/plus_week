@@ -36,7 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(adminRoleInterceptor)
                 .addPathPatterns(ADMIN_ROLE_REQUIRED_PATH_PATTERNS)
-                .order(Ordered.HIGHEST_PRECEDENCE+1);
+                .order(Ordered.HIGHEST_PRECEDENCE + 1);
 
         registry.addInterceptor(userRoleInterceptor)
                 .addPathPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS)

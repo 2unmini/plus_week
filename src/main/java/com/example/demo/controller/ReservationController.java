@@ -5,7 +5,6 @@ import com.example.demo.dto.ReservationResponseDto;
 import com.example.demo.service.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +21,9 @@ public class ReservationController {
     @PostMapping
     public void createReservation(@RequestBody ReservationRequestDto reservationRequestDto) {
         reservationService.createReservation(reservationRequestDto.getItemId(),
-                                            reservationRequestDto.getUserId(),
-                                            reservationRequestDto.getStartAt(),
-                                            reservationRequestDto.getEndAt());
+                reservationRequestDto.getUserId(),
+                reservationRequestDto.getStartAt(),
+                reservationRequestDto.getEndAt());
     }
 
     @PatchMapping("/{id}/update-status")
@@ -40,8 +39,8 @@ public class ReservationController {
 
     @GetMapping("/search")
     public ResponseEntity<List<ReservationResponseDto>> searchAll(@RequestParam(required = false) Long userId,
-                          @RequestParam(required = false) Long itemId) {
+                                                                  @RequestParam(required = false) Long itemId) {
         List<ReservationResponseDto> reservationResponseDtos = reservationService.searchAndConvertReservations(userId, itemId);
-        return new ResponseEntity<>(reservationResponseDtos,HttpStatus.OK);
+        return new ResponseEntity<>(reservationResponseDtos, HttpStatus.OK);
     }
 }

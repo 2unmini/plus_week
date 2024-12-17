@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.context.annotation.Configuration;
 
 import static com.example.demo.entity.UserStatus.BLOCKED;
 
@@ -32,7 +31,8 @@ public class User {
         this.password = password;
     }
 
-    public User() {}
+    public User() {
+    }
 
     public void updateStatusToBlocked() {
         this.status = BLOCKED;

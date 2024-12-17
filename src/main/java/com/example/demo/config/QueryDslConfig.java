@@ -1,7 +1,6 @@
 package com.example.demo.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
