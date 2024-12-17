@@ -32,7 +32,7 @@ public class ReservationService {
 
     // TODO: 1. 트랜잭션 이해
     @Transactional
-    public void createReservation(Long itemId, Long userId, LocalDateTime startAt, LocalDateTime endAt) {
+    public ReservationResponseDto createReservation(Long itemId, Long userId, LocalDateTime startAt, LocalDateTime endAt) {
         // 쉽게 데이터를 생성하려면 아래 유효성검사 주석 처리
         List<Reservation> haveReservations = reservationRepository.findConflictingReservations(itemId, startAt, endAt);
         if (!haveReservations.isEmpty()) {
@@ -46,6 +46,14 @@ public class ReservationService {
 
         RentalLog rentalLog = new RentalLog(savedReservation, "로그 메세지", LogType.SUCCESS);
         rentalLogService.save(rentalLog);
+
+        return ReservationResponseDto.builder()
+                .id(savedReservation.getId())
+                .nickname(savedReservation.getUser().getNickname())
+                .itemName(savedReservation.getItem().getName())
+                .startAt(savedReservation.getStartAt())
+                .endAt(savedReservation.getEndAt())
+                .build();
     }
 
     // TODO: 3. N+1 문제

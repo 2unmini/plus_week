@@ -20,7 +20,7 @@ ADMIN 인터셉터를 만든후
 사용하고자 하는 인터셉트와 위에서 설정한 API와 순서를 지정한다.
 ![img_5.png](img_5.png) 이런 결과가 나옴 
 ### Q3. TODO 3.
-페치조인을사용하고 그 후 연관된 엔티티의 페치타입을 LAZY로 변경 TODO : 확실한 이유 적기
+페치조인을사용
 <details>
 <summary>수정 전 쿼리</summary>
 <div markdown="1">       
@@ -125,10 +125,24 @@ Hibernate:
 
 ### Q5. TODO 5.
 ### A.
+QueryDSL 관련 셋팅 후 페치조인으로 N+1문제 해결
+```java
+@Override
+    public List<Reservation> getReservationByUserIdOrItemId(Long userId, Long itemId) {
+        QReservation reservation = QReservation.reservation;
+
+        return jpaQueryFactory.select(reservation)
+                .from(reservation)
+                .innerJoin(reservation.user).fetchJoin()
+                .innerJoin(reservation.item).fetchJoin()
+                .where(reservation.user.id.eq(userId).and(reservation.item.id.eq(itemId)))
+                .fetch();
+    }
+```
 
 ### Q6. TODO 6.
 ### A.
-
+![img_6.png](img_6.png)
 ### Q7. TODO 7.
 ### A.
 - [X] 개선1. 필요하지 않은 else구문을 걷어 냅니다.
@@ -160,7 +174,39 @@ Hibernate:
         reservation.updateStatus(status);
 
 ```
-- [ ] 개선2.컨트롤러 응답 데이터 타입을 적절하게 변경합니다.
+중간 피드백 후 이 코드 역할(status에따라 상태가 바뀌는)을 Status클래스가 해주면 어떨까 라는 피드백을 받고 
+```java
+public enum ReservationStatus {
+    PENDING("PENDING") {
+        @Override
+        public boolean canChangeTo(ReservationStatus status) {
+            switch (status) {
+                case APPROVED, CANCELED, EXPIRED -> {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }, APPROVED("APPROVED") {
+        @Override
+        public boolean canChangeTo(ReservationStatus status) {
+            return status.equals(APPROVED);
+        }
+    }, CANCELED("CANCELED") {
+        @Override
+        public boolean canChangeTo(ReservationStatus status) {
+            return status.equals(CANCELED);
+        }
+    }, EXPIRED("EXPIRED") {
+        @Override
+        public boolean canChangeTo(ReservationStatus status) {
+            return status.equals(EXPIRED);
+        }
+    };
+
+```
+필요한 메서드를 만들어 사용하였다.
+- [X] 개선2.컨트롤러 응답 데이터 타입을 적절하게 변경합니다.
 - [X] 개선3.재사용 비중이 높은 findById 함수들을 default 메소드로 선언합니다.
 - user쪽에서 중복으로 사용되던  findById함수를 
 ```java
@@ -169,4 +215,4 @@ return findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID에
 }
 ```
 - [X] 개선4.상태 값을 명확하게 enum으로 관리 합니다.
-- [ ] 개선5.첫번째 Transaction문제를 해결 했다면 RentalLogService save함수 내19~21번째 코드를 삭제하거나 주석처리하여 기능이 동작하도록 수정합니다..
+- [X] 개선5.첫번째 Transaction문제를 해결 했다면 RentalLogService save함수 내19~21번째 코드를 삭제하거나 주석처리하여 기능이 동작하도록 수정합니다..

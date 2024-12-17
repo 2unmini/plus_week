@@ -1,9 +1,11 @@
 package com.example.demo.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 public class ReservationResponseDto {
     private Long id;
