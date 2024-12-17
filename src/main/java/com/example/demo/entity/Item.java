@@ -1,14 +1,18 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.DynamicInsert;
 
 
 @Entity
 @Getter
+@Builder
 // TODO: 6. Dynamic Insert
 @DynamicInsert
+@AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

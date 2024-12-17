@@ -11,7 +11,6 @@ public enum ReservationStatus {
                 case APPROVED, CANCELED, EXPIRED -> {
                     return true;
                 }
-
             }
             return false;
         }
@@ -47,6 +46,13 @@ public enum ReservationStatus {
             return status;
         }
         else {
+            throw new IllegalArgumentException(this.status+"일때는 "+ status+"상태가 아닙니다");
+        }
+    }
+    public static ReservationStatus ischange(String status) {
+        try {
+            return ReservationStatus.valueOf(status);
+        }catch (IllegalArgumentException e){
             throw new IllegalArgumentException("올바르지 않은 상태: " + status);
         }
     }

@@ -91,7 +91,10 @@ public class ReservationService {
         }else if(userId ==null) {
             return reservationRepository.getReservationByItemId(itemId);
         }
-        return reservationRepository.findAllWithitemIdAndUserId();*/
+        return reservationRepository.findAllWithItemIdAndUserId();*/
+        if(userId==null && itemId ==null){
+            return reservationRepository.findAllWithitemIdAndUserId();
+        }
         return reservationRepository.getReservationByUserIdOrItemId(userId,itemId);
     }
 
@@ -137,7 +140,7 @@ public class ReservationService {
             }
         }*/
 
-        ReservationStatus reservationStatus = reservation.getStatus().changeTo(ReservationStatus.valueOf(status));
+        ReservationStatus reservationStatus = reservation.getStatus().changeTo(ReservationStatus.ischange(status));
         reservation.updateStatus(reservationStatus);
 
 

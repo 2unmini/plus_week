@@ -14,11 +14,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -28,7 +28,7 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationStatus status; // PENDING, APPROVED, CANCELED, EXPIRED
 
-    public Reservation(Item item, User user, ReservationStatus status, LocalDateTime startAt, LocalDateTime endAt) {
+    public Reservation (Item item, User user, ReservationStatus status, LocalDateTime startAt, LocalDateTime endAt) {
         this.item = item;
         this.user = user;
         this.status= status;
