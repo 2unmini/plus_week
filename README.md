@@ -25,7 +25,7 @@ ADMIN 인터셉터를 만든후
 <summary>수정 전 쿼리</summary>
 <div markdown="1">       
 
-```SQL
+```
 Hibernate: 
     select
         r1_0.id,
@@ -75,7 +75,7 @@ Hibernate:
 <summary>수정 후 쿼리</summary>
 <div markdown="1">       
 
-```SQL
+```
 Hibernate: 
     select
         r1_0.id,
@@ -146,7 +146,7 @@ QueryDSL 관련 셋팅 후 페치조인으로 N+1문제 해결
 ### Q7. TODO 7.
 ### A.
 - [X] 개선1. 필요하지 않은 else구문을 걷어 냅니다.
-```java
+``` java
  switch (status) {
             case "APPROVED": {
                 if (!"PENDING".equals(reservation.getStatus())) {
@@ -205,7 +205,7 @@ public enum ReservationStatus {
     };
 
 ```
-필요한 메서드를 만들어 사용하였다.
+이렇게 필요한 메서드를 만들어 사용하였다.
 - [X] 개선2.컨트롤러 응답 데이터 타입을 적절하게 변경합니다.
 - [X] 개선3.재사용 비중이 높은 findById 함수들을 default 메소드로 선언합니다.
 - user쪽에서 중복으로 사용되던  findById함수를 
