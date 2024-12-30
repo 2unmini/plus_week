@@ -19,6 +19,11 @@ ADMIN 인터셉터를 만든후
 ![img_4.png](img_4.png)
 사용하고자 하는 인터셉트와 위에서 설정한 API와 순서를 지정한다.
 ![img_5.png](img_5.png) 이런 결과가 나옴 
+
+- [ ] 수정 
+![img_7.png](img_7.png)
+/reservations일때 /* 하위 하나의 경로에 대해서만 적용 /**는 하위 모든 경로에 대해서 적용
+
 ### Q3. TODO 3.
 페치조인을사용
 <details>
@@ -26,44 +31,7 @@ ADMIN 인터셉터를 만든후
 <div markdown="1">       
 
 ```
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.end_at,
-        r1_0.item_id,
-        r1_0.start_at,
-        r1_0.status,
-        r1_0.user_id 
-    from
-        reservation r1_0
-Hibernate: 
-    select
-        i1_0.id,
-        i1_0.description,
-        m1_0.id,
-        m1_0.email,
-        m1_0.nickname,
-        m1_0.password,
-        m1_0.role,
-        m1_0.status,
-        i1_0.name,
-        o1_0.id,
-        o1_0.email,
-        o1_0.nickname,
-        o1_0.password,
-        o1_0.role,
-        o1_0.status,
-        i1_0.status 
-    from
-        item i1_0 
-    left join
-        user m1_0 
-            on m1_0.id=i1_0.manager_id 
-    left join
-        user o1_0 
-            on o1_0.id=i1_0.owner_id 
-    where
-        i1_0.id=?
+
 ```
 
 </div>
