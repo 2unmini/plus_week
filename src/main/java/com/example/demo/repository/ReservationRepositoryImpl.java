@@ -21,9 +21,8 @@ public class ReservationRepositoryImpl implements CustomRepository {
 
         return jpaQueryFactory.select(reservation)
                 .from(reservation)
-                .innerJoin(reservation.user).fetchJoin()
-                .innerJoin(reservation.item).fetchJoin()
-                .where(reservation.user.id.eq(userId).and(reservation.item.id.eq(itemId)))
+                .where(userId!=null ?QReservation.reservation.user.id.eq(userId):null)
+                .where(itemId!=null ? QReservation.reservation.item.id.eq(itemId):null)
                 .fetch();
     }
 

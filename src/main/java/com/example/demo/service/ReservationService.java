@@ -77,18 +77,11 @@ public class ReservationService {
     // TODO: 5. QueryDSL 검색 개선
     public List<ReservationResponseDto> searchAndConvertReservations(Long userId, Long itemId) {
 
-        List<Reservation> reservations = searchReservations(userId, itemId);
+        List<Reservation> reservations = reservationRepository.getReservationByUserIdOrItemId(userId, itemId);
 
         return convertToDto(reservations);
     }
 
-    public List<Reservation> searchReservations(Long userId, Long itemId) {
-
-        if (userId == null && itemId == null) {
-            return reservationRepository.findAllWithitemIdAndUserId();
-        }
-        return reservationRepository.getReservationByUserIdOrItemId(userId, itemId);
-    }
 
     private List<ReservationResponseDto> convertToDto(List<Reservation> reservations) {
         return reservations.stream()
