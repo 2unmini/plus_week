@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     // TODO: 2. 인가에 대한 이해
     private static final String[] AUTH_REQUIRED_PATH_PATTERNS = {"/users/logout", "/admins/*", "/items/*"};
     private static final String[] USER_ROLE_REQUIRED_PATH_PATTERNS = {"/reservations/**"};
-    private static final String[] ADMIN_ROLE_REQUIRED_PATH_PATTERNS = {"/admins/*"};
+    private static final String[] ADMIN_ROLE_REQUIRED_PATH_PATTERNS = {"/admins/**"};
 
     private final AuthInterceptor authInterceptor;
     private final UserRoleInterceptor userRoleInterceptor;
@@ -44,14 +44,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     }
 
-    @Bean
+    /*@Bean
     public FilterRegistrationBean authFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new AuthFilter());
         filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         filterRegistrationBean.addUrlPatterns(AUTH_REQUIRED_PATH_PATTERNS);
         return filterRegistrationBean;
-    }
+    }*/
     /*@Bean
     public FilterRegistrationBean adminRoleFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean=new FilterRegistrationBean<>();
@@ -61,12 +61,12 @@ public class WebConfig implements WebMvcConfigurer {
         return filterRegistrationBean;
     }*/
 
-    @Bean
+    /*@Bean
     public FilterRegistrationBean userRoleFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new RoleFilter(Role.USER));
         filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 2);
         filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
         return filterRegistrationBean;
-    }
+    }*/
 }

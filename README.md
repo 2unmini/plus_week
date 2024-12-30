@@ -31,6 +31,44 @@ ADMIN 인터셉터를 만든후
 <div markdown="1">       
 
 ```
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.end_at,
+        r1_0.item_id,
+        r1_0.start_at,
+        r1_0.status,
+        r1_0.user_id 
+    from
+        reservation r1_0
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.description,
+        m1_0.id,
+        m1_0.email,
+        m1_0.nickname,
+        m1_0.password,
+        m1_0.role,
+        m1_0.status,
+        i1_0.name,
+        o1_0.id,
+        o1_0.email,
+        o1_0.nickname,
+        o1_0.password,
+        o1_0.role,
+        o1_0.status,
+        i1_0.status 
+    from
+        item i1_0 
+    left join
+        user m1_0 
+            on m1_0.id=i1_0.manager_id 
+    left join
+        user o1_0 
+            on o1_0.id=i1_0.owner_id 
+    where
+        i1_0.id=?
 
 ```
 
@@ -65,11 +103,11 @@ Hibernate:
     from
         reservation r1_0 
     join
-        user u1_0 
-            on u1_0.id=r1_0.user_id 
-    join
         item i1_0 
-            on i1_0.id=r1_0.item_id
+            on i1_0.id=r1_0.item_id 
+    join
+        user u1_0 
+            on u1_0.id=r1_0.user_id
 ```
 
 </div>
@@ -90,6 +128,15 @@ Hibernate:
        }
     }
 ```
+피드백 후
+```java
+for (User user : users) {
+            user.updateStatusToBlocked();
+        }
+```
+메소드를 디비에서 업데이트 해주는 방법을 추천받았다
+
+![img_9.png](img_9.png)
 
 ### Q5. TODO 5.
 ### A.
