@@ -1,15 +1,9 @@
 package com.example.demo.config;
 
-import com.example.demo.entity.Role;
-import com.example.demo.filter.AuthFilter;
-import com.example.demo.filter.RoleFilter;
 import com.example.demo.interceptor.AdminRoleInterceptor;
 import com.example.demo.interceptor.AuthInterceptor;
 import com.example.demo.interceptor.UserRoleInterceptor;
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
