@@ -29,7 +29,7 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private User manager;
-    @Setter
+
     @Column(nullable = false, columnDefinition = "varchar(20) default 'PENDING'")
     @Enumerated(EnumType.STRING)
     private ItemType status;

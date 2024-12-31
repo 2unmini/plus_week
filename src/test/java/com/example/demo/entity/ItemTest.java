@@ -32,7 +32,6 @@ class ItemTest {
         User user = new User("user","Qwer@naver.com","nickname2","Qwer1234");
 
         Item item = new Item("아이템", "설명", owner, user);
-        item.setStatus(null);
 
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> itemRepository.save(item));
 
