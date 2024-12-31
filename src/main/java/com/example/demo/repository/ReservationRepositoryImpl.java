@@ -19,8 +19,7 @@ public class ReservationRepositoryImpl implements CustomRepository {
     public List<Reservation> getReservationByUserIdOrItemId(Long userId, Long itemId) {
         QReservation reservation = QReservation.reservation;
 
-        return jpaQueryFactory.select(reservation)
-                .from(reservation)
+        return jpaQueryFactory.selectFrom(reservation)
                 .where(userId!=null ?QReservation.reservation.user.id.eq(userId):null)
                 .where(itemId!=null ? QReservation.reservation.item.id.eq(itemId):null)
                 .fetch();

@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -8,6 +9,7 @@ import static com.example.demo.entity.UserStatus.BLOCKED;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @DynamicInsert
 public class User {
     @Id

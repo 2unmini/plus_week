@@ -13,6 +13,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 // TODO: 6. Dynamic Insert
 @AllArgsConstructor
+//@DynamicInsert
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

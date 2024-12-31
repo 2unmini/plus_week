@@ -1,12 +1,16 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +38,7 @@ public class Reservation {
         this.endAt = endAt;
     }
 
-    public Reservation() {
+    public Reservation(Item item, User owner, String s, String string) {
     }
 
     public void updateStatus(ReservationStatus status) {
