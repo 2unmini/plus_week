@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
 
@@ -11,7 +12,6 @@ import org.hibernate.annotations.DynamicInsert;
 @Getter
 @Builder
 // TODO: 6. Dynamic Insert
-@DynamicInsert
 @AllArgsConstructor
 public class Item {
     @Id
@@ -29,7 +29,7 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private User manager;
-
+    @Setter
     @Column(nullable = false, columnDefinition = "varchar(20) default 'PENDING'")
     @Enumerated(EnumType.STRING)
     private ItemType status;
